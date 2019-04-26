@@ -8,7 +8,7 @@ kubectl create serviceaccount deployer
 kubectl create clusterrolebinding deployer-cluster-rule --clusterrole=cluster-admin --serviceaccount=default:deployer
 
 # get bearer token
-export BEARER_TOKEN=$(kubectl get secret $(kubectl get serviceaccount deployer -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 -D)
+export BEARER_TOKEN=$(kubectl get secret $(kubectl get serviceaccount deployer -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.token}" | base64 -d)
 
 # get cluster certificate authority (as base64)
 export CERTIFICATE_AUTHORITY=$(kubectl get secret $(kubectl get serviceaccount deployer -o jsonpath="{.secrets[0].name}") -o jsonpath="{.data.ca\.crt}")
